@@ -6,6 +6,9 @@ export default function dashboardPage() {
       <div className=' grid grid-cols-6 min-h-screen '>
         
         <Sidebar />
+        <main>
+          contenct
+        </main>
       </div>
     )
   }
