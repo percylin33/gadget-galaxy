@@ -8,8 +8,11 @@ import { useState } from 'react';
 import { TiShoppingCart } from 'react-icons/ti';
 import logo from '@/access/logo.png'
 
+interface NavbarProps {
+    showNavbar: boolean;
+  }
 
-function Navbar() {
+function Navbar({ showNavbar }: NavbarProps)  {
     let linkNav = [
         {name: "Home", link: "/"},
         {name: "Gallery", link: "/gallery"},
@@ -26,7 +29,7 @@ function Navbar() {
 
 
     return (
-        <div className='shadow-md  w-full sticky  top-0 left-0'>
+        <div className={`shadow-md w-full sticky top-0 left-0 ${showNavbar ? "" : "hidden"}`}>
             <div className='md:flex bg-nav items-center justify-between py-4 md:px-10 px-7'>
                 <div className='font-bold text-2xl cursor-pointer flex items-center font-[Poppins] text-gray-800'>
                     <Image src={logo} alt="imagen logo" className='w-14 h-14' />

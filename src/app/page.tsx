@@ -5,5 +5,4 @@ export default function Home() {
     <main className="h-screen">
       <h1>HomePage</h1>
     </main>
-  )
-}
+  )}

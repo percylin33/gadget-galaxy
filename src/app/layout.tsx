@@ -12,14 +12,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  showNavbar = true,
 }: {
   children: React.ReactNode;
+  showNavbar?: boolean;
 }) {
   return (
     <html lang="en">
       
       <body className={inter.className}>
-        <Navbar  />
+        <Navbar showNavbar={showNavbar} />
         {children}
         </body>
     </html>
