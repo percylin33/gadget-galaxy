@@ -8,8 +8,8 @@ function Sidebar(){
        const [showMenu, setShowMenu] = useState(true);
     return (
     <>
-    <div className={`bg-plomo h-screen fixed lg:static w-[80%] md:w-[40%] lg:w-full transition-all duration-300 left-0  ${showMenu ? "bottom-0" : "-bottom-full" }`}>
-            <div className="flex flex-col items-center justify-center p-8 py-4 gap-2 h-[25vh]">
+    <div className={`bg-plomo h-full fixed lg:static w-[80%] md:w-[40%] lg:w-full transition-all duration-300 left-0  ${showMenu ? "bottom-0" : "-bottom-full" }`}>
+            <div className="flex flex-col items-center justify-center p-8 py-4 gap-2 h-[27vh]">
                 <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png" alt="imagen" 
                 className="w-20 h-20 object-cover rounded-full " />
             </div>
