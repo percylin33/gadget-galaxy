@@ -8,7 +8,7 @@ function Sidebar(){
        const [showMenu, setShowMenu] = useState(true);
     return (
     <>
-    <div className={`bg-plomo h-full fixed lg:static w-[80%] md:w-[40%] lg:w-full transition-all duration-300 left-0  ${showMenu ? "bottom-0" : "-bottom-full" }`}>
+    <div className={`bg-plomo h-[100hv] fixed lg:static w-[80%] md:w-[40%] lg:w-full transition-all duration-300 left-0  ${showMenu ? "bottom-0" : "-bottom-full" }`}>
             <div className="flex flex-col items-center justify-center p-8 py-4 gap-2 h-[27vh]">
                 <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png" alt="imagen" 
                 className="w-20 h-20 object-cover rounded-full " />
@@ -17,8 +17,8 @@ function Sidebar(){
         
             <p className="bg-rojo m-auto my-2  rounded-full py-1 px-3 text-center w-24 text-white">Pro level</p>
         {/* nav */}
-        <div className='bg-teal-100 p-6 rounded-tr-[100px] h-[64vh] flex flex-col  justify-between overflow-y-scroll gap-8'>
-        <nav>
+        <div className='bg-teal-100 p-6 rounded-tr-[100px] h-[70vh] flex flex-col  justify-between overflow-y-scroll gap-8'>
+        <nav className='flex flex-col gap-4'>
             <Link href='#' className='flex items-center gap-4 py-2 px-2 rounded-xl hover:bg-plomo/50 transition-colors'>
                 <IoStorefront />Store
             </Link>
