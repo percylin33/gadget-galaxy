@@ -1,20 +1,20 @@
 import Sidebar from "@/components/Sidebar"
-import RootLayout from "@/app/layout"
+
 import Link from "next/link"
 
 export default function dashboardPage() {
     return (
-      <RootLayout showNavbar={false}>
-      <div className=' grid grid-cols-6 min-h-screen '>
+      
+      <div className=' grid grid-cols-6 min-h-screen lg:h-[calc(100vh-4rem)] bg-rojo'>
         
         <Sidebar />
-        <main>
+        <main className=" bg-rojo">
           <a href='/'>atras</a>
           <br/>
           contenct
         </main>
       </div>
-      </RootLayout>
+      
     )
   }
   
