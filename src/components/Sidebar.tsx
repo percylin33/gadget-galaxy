@@ -38,13 +38,13 @@ function Sidebar(){
         </nav>
         <div className='bg-plomo/50 p-2 rounded-xl'>
             <p className='text-center text-gray-800'>Having Problems ?</p>
-            <Link href='#'> <p className='text-sm text-center font-bold'>Contact Us</p></Link>
+            <Link href='#'> <p className='text-sm text-center font-bold text-gray-900'>Contact Us</p></Link>
 
         </div>
         </div>
     </div>
     {/* boton movil */}
-    <button onClick={()=> setShowMenu(!showMenu)} className='fixed right-4 bottom-4 text-4xl lg:hidden z-20 '>
+    <button onClick={()=> setShowMenu(!showMenu)} className='fixed right-4 bottom-4 text-4xl lg:hidden z-20 text-gray-900'>
         {showMenu ? <IoCloseCircle /> : <IoEllipsisVerticalCircleSharp /> }
        
     </button>
