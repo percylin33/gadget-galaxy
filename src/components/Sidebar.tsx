@@ -13,12 +13,12 @@ function Sidebar(){
                 <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png" alt="imagen" 
                 className="w-20 h-20 object-cover rounded-full " />
             </div>
-            <h1 className="text-xl font-bold text-center">Percy Valderrama</h1>
+            <h1 className="text-xl font-bold text-center text-gray-900">Percy Valderrama</h1>
         
             <p className="bg-rojo m-auto my-2  rounded-full py-1 px-3 text-center w-24 text-white">Pro level</p>
         {/* nav */}
         <div className='bg-teal-100 p-6 rounded-tr-[100px] h-[66vh] md:h-[66vh] lg:h-[74vh] flex flex-col  justify-between  gap-8'>
-        <nav className='flex flex-col gap-4'>
+        <nav className='flex flex-col gap-4 text-gray-900'>
             <Link href='/dashboard' className='flex items-center gap-4 py-2 px-2 rounded-xl hover:bg-plomo/50 transition-colors'>
                 <IoStorefront />Store
             </Link>
