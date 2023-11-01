@@ -4,7 +4,7 @@ import {IoSearch} from 'react-icons/io5';
 function Header() {
   
     return (
-        <header className="flex flex-col items-center justify-between md:flex-row gap-4">
+        <header className="flex flex-col items-center justify-between md:flex-row gap-4 p-8">
             <h1 className="text-2xl md:text-3xl font-bold">🤗Good morning, <span className="text-rojo">Percy</span>
             </h1>
             <form className="w-full md:w-auto" >
