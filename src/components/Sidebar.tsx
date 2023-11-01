@@ -19,7 +19,7 @@ function Sidebar(){
         {/* nav */}
         <div className='bg-teal-100 p-6 rounded-tr-[100px] h-[66vh] md:h-[66vh] lg:h-[74vh] flex flex-col  justify-between  gap-8'>
         <nav className='flex flex-col gap-4'>
-            <Link href='#' className='flex items-center gap-4 py-2 px-2 rounded-xl hover:bg-plomo/50 transition-colors'>
+            <Link href='/dashboard' className='flex items-center gap-4 py-2 px-2 rounded-xl hover:bg-plomo/50 transition-colors'>
                 <IoStorefront />Store
             </Link>
             <Link href='#' className='flex items-center gap-4 py-2 px-2 rounded-xl hover:bg-plomo/50 transition-colors'>
