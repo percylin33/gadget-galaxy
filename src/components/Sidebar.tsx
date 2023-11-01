@@ -28,7 +28,7 @@ function Sidebar(){
             <Link href='#' className='flex items-center gap-4 py-2 px-2 rounded-xl hover:bg-plomo/50 transition-colors'>
                 <IoAlbums />Sales
             </Link>
-            <Link href='#' className='flex items-center gap-4 py-2 px-2 rounded-xl hover:bg-plomo/50 transition-colors'>
+            <Link href='/dashboard/form' className='flex items-center gap-4 py-2 px-2 rounded-xl hover:bg-plomo/50 transition-colors'>
                 <IoBook />Forms
             </Link>
             <Link href='#' className='flex items-center gap-4 py-2 px-2 rounded-xl hover:bg-plomo/50 transition-colors'>
