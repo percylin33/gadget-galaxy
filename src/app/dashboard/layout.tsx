@@ -9,7 +9,7 @@ export default function dashboardLayout({children}: {
   }) {
     return (
       
-      <div className=' grid  lg:grid-cols-4 xl:grid-cols-6 min-h-screen lg:h-[calc(100vh-4rem)] bg-gris text-gray-900'> 
+      <div className=' grid  lg:grid-cols-4 xl:grid-cols-6 min-h-screen  bg-gris text-gray-900'> 
         <Sidebar />
         <main className="lg:col-span-3 xl:col-span-5 ">
           <Header />

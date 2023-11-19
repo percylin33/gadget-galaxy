@@ -6,7 +6,7 @@ export default function formPage() {
     return (
       
 <div className  =" bg-gris px-8 md:grid md:grid-flow-col">
-  <div className="relative bg-gradient-to-b from-teal-300 via-teal-200 to-teal-100 p-4 rounded-xl ">
+  <div className="relative bg-gradient-to-b from-teal-300 via-teal-200 to-teal-100 p-4 rounded-xl md:h-96">
     <div className="flex justify-center pb-8  ">
       <Image src={logo} alt="logo" className="w-20 h-20 md:w-60 md:h-60" />
     </div>
@@ -21,25 +21,42 @@ export default function formPage() {
   </div>
   <div className="flex flex-col items-center justify-center gap-3 md:justify-start">
     <h2 className="font-semibold">Product Creation</h2>
-    <form action="" className="flex flex-col gap-1">
-      <label htmlFor="Name">Name:</label>
-      <input type="text" className="rounded-xl font-medium" />
+    <form action="" className="flex flex-col gap-4">
+      <div className="flex flex-col gap-1">
+        <label htmlFor="Name" className="text-sm font-semibold text-gray-600">Name:</label>
+        <input type="text" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+      </div>
 
-      <label htmlFor="Brand ">Brand :</label>
-      <input type="text" className="rounded-xl font-medium" />
+      <div className="flex flex-col gap-1">
+        <label htmlFor="Brand" className="text-sm font-semibold text-gray-600">Brand:</label>
+        <input type="text" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+      </div>
 
-      <label htmlFor="Category">Category:</label>
-      <input type="text" className="rounded-xl font-medium" />
+      <div className="flex flex-col gap-1">
+    <label htmlFor="Category" className="text-sm font-semibold text-gray-600">Category:</label>
+        <input type="text" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+      </div>
 
-      <label htmlFor="Image">Image:</label>
-      <input type="text" className="rounded-xl font-medium" />
+      <div className="flex flex-col gap-1">
+        <label htmlFor="Image" className="text-sm font-semibold text-gray-600">Image:</label>
+        <input type="text" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+      </div>
 
-      <label htmlFor="Price">Price:</label>
-      <input type="text" className="rounded-xl font-medium" />
+      <div className="flex flex-col gap-1">
+        <label htmlFor="Price" className="text-sm font-semibold text-gray-600">Price:</label>
+        <input type="text" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+      </div>
 
-      <label htmlFor="Description">Description:</label>
-      <input type="text" className="rounded-xl font-medium" />
+      <div className="flex flex-col gap-1">
+        <label htmlFor="Description" className="text-sm font-semibold text-gray-600">Description:</label>
+        <textarea  className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"></textarea>
+      </div>
+  
+      <button type="submit" className="bg-teal-500 text-white font-semibold rounded-lg py-2 my-4 px-4 hover:bg-teal-600 transition duration-300 ease-in-out">
+        Submit
+      </button>
     </form>
+
   </div>
 </div>
       

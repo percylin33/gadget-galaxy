@@ -7,12 +7,14 @@ import { IoMenu, IoCloseCircleSharp } from 'react-icons/io5';
 import { useState } from 'react';
 import { TiShoppingCart } from 'react-icons/ti';
 import logo from '@/access/logo.png'
+import { usePathname } from "next/navigation";
 
 interface NavbarProps {
     showNavbar: boolean;
   }
 
 function Navbar()  {
+    const pathname = usePathname();
     let linkNav = [
         {name: "Home", link: "/"},
         {name: "Gallery", link: "/gallery"},
@@ -26,10 +28,16 @@ function Navbar()  {
         setOpen(false);
     };
     const buttonProps = <Link href='/login' onClick={closeMenu}>login</Link>;
+    let hidden
+    if (pathname.includes("/dashboard")) {
+        hidden = "hidden"
+    } else {
+        hidden =""
+    }
 
 
     return (
-        <div className={`shadow-md w-full sticky top-0 left-0 z-30`}>
+        <div className={`shadow-md w-full sticky top-0 left-0 z-30 ${hidden}`}>
             <div className='md:flex bg-nav items-center justify-between py-4 md:px-10 px-7'>
                 <div className='font-bold text-2xl cursor-pointer flex items-center font-[Poppins] text-gray-800'>
                     <Image src={logo} alt="imagen logo" className='w-14 h-14' />
