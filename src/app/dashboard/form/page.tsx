@@ -5,7 +5,7 @@ import Link from "next/link"
 export default function formPage() {
     return (
       
-<div className  =" bg-gris px-8 md:grid md:grid-flow-col">
+<div className  =" bg-gris px-8 md:grid md:grid-flow-col lg:ml-8">
   <div className="relative bg-gradient-to-b from-teal-300 via-teal-200 to-teal-100 p-4 rounded-xl md:h-96">
     <div className="flex justify-center pb-8  ">
       <Image src={logo} alt="logo" className="w-20 h-20 md:w-60 md:h-60" />
