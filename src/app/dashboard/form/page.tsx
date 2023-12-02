@@ -3,6 +3,7 @@ import logo from "@/access/logo.png"
 import Link from "next/link"
 
 export default function formPage() {
+
     return (
       
 <div className  =" bg-gris px-8 md:grid md:grid-flow-col lg:ml-8">
