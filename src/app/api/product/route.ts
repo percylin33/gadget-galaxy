@@ -21,9 +21,9 @@ export async function GET(){
 }
 
 export async function POST(request: Request) {
-    const { name, brand, category, image, price, descriotion } = await request.json();
+    const { name, brand, category, image, price, description } = await request.json();
     try {
-        const newProduct = await postProduct( name, brand, category, image, price, descriotion);
+        const newProduct = await postProduct( name, brand, category, image, price, description);
         return NextResponse.json(newProduct);
     } catch (error) {
         if (error instanceof Error ) {
