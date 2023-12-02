@@ -4,7 +4,7 @@ import logo from "@/access/logo.png"
 import Link from "next/link"
 import axios from "axios"
 import { useFormState } from "react-dom"
-import {useState} from "react"
+import React, { useState } from 'react';
 
 export default function formPage() {
 
