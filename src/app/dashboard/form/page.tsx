@@ -4,7 +4,7 @@ import logo from "@/access/logo.png"
 import axios from "axios"
 import React, { useState } from 'react';
 
-export default function formPage() {
+export default function FormPage() {
 
   const [name, setName] =useState("")
   const [brand, setBrand] =useState("")
