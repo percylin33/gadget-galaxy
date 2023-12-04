@@ -2,7 +2,8 @@
 import Image from "next/image"
 import logo from "@/access/logo.png"
 import axios from "axios"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Toast from "@/components/toast";
 
 export default function FormPage() {
 
@@ -12,6 +13,14 @@ export default function FormPage() {
   const [image, setImage] =useState("")
   const [price, setPrice] =useState(0)
   const [description, setDescription] =useState("")
+  
+  const [productCreated, setProductCreated] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setProductCreated(false); // Reset product creation status to false
+    }, 3000);
+  }, [productCreated]);
+
   const handleSubmit = async (event: any)=>{
       event.preventDefault()
       
@@ -27,13 +36,21 @@ export default function FormPage() {
     try {
       const response = await axios.post('/api/product', productData);
       console.log("Product created successfully:", response.data);
-
-      // Handle successful product creation
-      // Show success message or redirect to confirmation page
+      const form: HTMLFormElement | null = document.querySelector("#form-product");
+  
+      if (form) {
+        form.reset();
+      } else {
+        console.error("No form element found");
+      }
+      setProductCreated(true);  
+      if (productCreated) {
+        
+      }
+       
     } catch (error) {
-      console.error("Error creating product:", error);
+      console.error("Error creating product:" );
 
-      // Handle error message
     }
   }
 
@@ -55,8 +72,9 @@ export default function FormPage() {
   </div>
   <div className="flex flex-col items-center justify-center gap-3 md:justify-start">
     <h2 className="font-semibold">Product Creation</h2>
+    {productCreated && <Toast message="Product created successfully!" />}
 
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit} id="form-product" className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
         <label htmlFor="name" className="text-sm font-semibold text-gray-600">Name:</label>
         <input type="text" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" onChange={(e)=>{setName(e.target.value)}} />
@@ -91,7 +109,6 @@ export default function FormPage() {
         Submit
       </button>
     </form>
-
   </div>
 </div>
       
