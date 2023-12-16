@@ -4,49 +4,57 @@ import logo from "@/access/logo.png"
 import axios from "axios"
 import React, { useState, useEffect } from 'react';
 import Toast from "@/components/toast";
+import {SubmitHandler, useForm} from "react-hook-form"
+import {zodResolver} from "@hookform/resolvers/zod"
+import { productSchema, mappedCategory } from "@/validations/productSchema";
+
+
+type inputs = {
+  name: string
+  brand: string
+  category: string
+  image: string
+  price: string
+  description: string
+}
 
 export default function FormPage() {
 
-  const [name, setName] =useState("")
-  const [brand, setBrand] =useState("")
-  const [category, setCategory] =useState("")
-  const [image, setImage] =useState("")
-  const [price, setPrice] =useState(0)
-  const [description, setDescription] =useState("")
+   const [productCreated, setProductCreated] = useState(false);
+   useEffect(() => {
+      setTimeout(() => {
+        setProductCreated(false); // Reset product creation status to false
+      }, 3000);
+   }, [productCreated]);
   
-  const [productCreated, setProductCreated] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setProductCreated(false); // Reset product creation status to false
-    }, 3000);
-  }, [productCreated]);
+  const {register, handleSubmit, formState:{errors}} = useForm<inputs>({
+    resolver: zodResolver(productSchema)
+  });
 
-  const handleSubmit = async (event: any)=>{
-      event.preventDefault()
-      
-      const productData ={
-        name,
-        brand,
-        category,
-        image,
-        price,
-        description,
-      }
-      
-    try {
-      const response = await axios.post('/api/product', productData);
-      console.log("Product created successfully:", response.data);
-      const form: HTMLFormElement | null = document.querySelector("#form-product");
-      form?  form.reset(): ""
-      
-      setProductCreated(true);  
-      
-    } catch (error) {
-      console.error("Error creating product:" );
+  const categoryOptions =  Object.entries(mappedCategory).map(([key, value])=>(
+    <option value={key} key={key}>{value}</option>
+  ))
+ 
 
+ const onSubmit: SubmitHandler<inputs>= async(data)=>{
+    console.log(data );
+    const product = {
+      name: data.name,
+      brand: data.brand,
+      category: data.category,
+      image: data.image,
+      price: Number(data.price),
+      description: data.description
     }
-  }
-
+    try {
+      const response = await axios.post('/api/product', product); 
+      setProductCreated(true);
+    } catch (error) {
+      alert( "Error creating product")
+    }
+    
+ }
+ 
     return (
       
 <div className  =" bg-gris px-8 md:grid md:grid-flow-col lg:ml-8">
@@ -63,42 +71,72 @@ export default function FormPage() {
     
     </div>
   </div>
-  <div className="flex flex-col items-center justify-center gap-3 md:justify-start">
+  <div className="flex flex-col items-center justify-center gap-3 md:justify-start lg:mx-w-[550px]">
     <h2 className="font-semibold">Product Creation</h2>
     {productCreated && <Toast message="Product created successfully!" />}
 
-    <form onSubmit={handleSubmit} id="form-product" className="flex flex-col gap-4">
+    <form onSubmit={ handleSubmit(onSubmit)} className="flex flex-col gap-4 lg:pl-20 lg:min-w-[352px]">
+
       <div className="flex flex-col gap-1">
         <label htmlFor="name" className="text-sm font-semibold text-gray-600">Name:</label>
-        <input type="text" placeholder="Please enter the name" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" onChange={(e)=>{setName(e.target.value)}} />
+        <input type="text" id="name" placeholder="Please enter the name" 
+        className={`rounded-lg py-1 px-3 border ${errors.name?.message?" border-red-300 ":" border-gray-300  focus:ring-teal-500" } focus:outline-none focus:ring-2 max-w-[246px]`}
+        {...register("name")}
+        />
+        {errors.name?.message && <p className="text-red-400">{errors.name?.message}</p> }
       </div>
 
       <div className="flex flex-col gap-1">
         <label htmlFor="brand" className="text-sm font-semibold text-gray-600">Brand:</label>
-        <input type="text" placeholder="Please enter the brand" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" onChange={(e)=>{setBrand(e.target.value)}}/>
+        <input type="text" id="brand" placeholder="Please enter the brand"
+        className={`rounded-lg py-1 px-3 border ${errors.brand?.message?" border-red-300 ":" border-gray-300  focus:ring-teal-500" } focus:outline-none focus:ring-2 max-w-[246px]`}
+        {...register("brand")}
+        />
+        {errors.brand?.message && <p className="text-red-400">{errors.brand?.message}</p> }
       </div>
 
       <div className="flex flex-col gap-1">
-    <label htmlFor="category" className="text-sm font-semibold text-gray-600">Category:</label>
-        <input type="text" placeholder="Please enter the category" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" onChange={(e)=>{setCategory(e.target.value)}}/>
+        <label htmlFor="category" className="text-sm font-semibold text-gray-600">Category:</label>
+        <select
+              id="category"
+              className={`peer block w-full rounded-md border  ${errors.category?.message?" border-red-300 ":" border-gray-300  focus:ring-teal-500" } py-2 pl-10 text-sm focus:outline-none focus:ring-2 placeholder:text-gray-500 max-w-[246px]`}
+              defaultValue=""
+              {...register("category")}
+            >
+              <option value="" disabled >Select a category</option>
+              {categoryOptions}
+            </select>
+            {errors.category?.message && <p className="text-red-400">{errors.category?.message}</p> }
       </div>
 
       <div className="flex flex-col gap-1">
         <label htmlFor="image" className="text-sm font-semibold text-gray-600">Image:</label>
-        <input type="text" placeholder="Please enter the image" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" onChange={(e)=>{setImage(e.target.value)}}/>
+        <input type="text" id="image" placeholder="Please enter the image"
+        className={`rounded-lg py-1 px-3 border ${errors.image?.message?" border-red-300 ":" border-gray-300  focus:ring-teal-500" } focus:outline-none focus:ring-2 max-w-[246px]`}
+        {...register("image")}
+        />
+        {errors.image?.message && <p className="text-red-400">{errors.image?.message}</p> }
       </div>
 
       <div className="flex flex-col gap-1">
         <label htmlFor="price" className="text-sm font-semibold text-gray-600">Price:</label>
-        <input type="text" placeholder="Please enter the price" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" onChange={(e)=>{setPrice(Number(e.target.value))}}/>
+        <input type="number" id="price" placeholder="Please enter the price"
+        className={`rounded-lg py-1 px-3 border ${errors.price?.message?" border-red-300 ":" border-gray-300  focus:ring-teal-500" } focus:outline-none focus:ring-2 max-w-[246px]`}
+        {...register("price")}
+        />
+        {errors.price?.message && <p className="text-red-400">{errors.price?.message}</p> }
       </div>
 
       <div className="flex flex-col gap-1">
-        <label htmlFor="description" className="text-sm font-semibold text-gray-600">Description:</label>
-        <textarea placeholder="Please enter the description" className="rounded-lg py-1 px-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" onChange={(e)=>{setDescription(e.target.value)}}></textarea>
+        <label htmlFor="description" id="description" className="text-sm font-semibold text-gray-600">Description:</label>
+        <textarea placeholder="Please enter the description"
+        className={`rounded-lg py-1 px-3 border ${errors.description?.message?" border-red-300 ":" border-gray-300  focus:ring-teal-500" } focus:outline-none focus:ring-2 max-w-[246px]`}
+        {...register("description")}
+        />
+        {errors.description?.message && <p className="text-red-400">{errors.description?.message}</p> }
       </div>
   
-      <button type="submit" className="bg-teal-500 text-white font-semibold rounded-lg py-2 my-4 px-4 hover:bg-teal-600 transition duration-300 ease-in-out">
+      <button type="submit"className="bg-teal-500 text-white font-semibold rounded-lg py-2 my-4 px-4 hover:bg-teal-600 transition duration-300 ease-in-out max-w-[246px]">
         Submit
       </button>
     </form>
