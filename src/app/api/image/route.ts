@@ -3,15 +3,15 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
     const data = await request.formData()
-    const image = data.get("file")
+    const file = data.get("file")
 
-    if (!image) {
+    if (!file) {
         return NextResponse.json("Error al subir la imagen", {
             status: 400
         })
     }
 
-    const bytes = await image.arrayBuffer();
+    const bytes = await (file as File).arrayBuffer();
     const buffer = Buffer.from(bytes)
 
 
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
         api_secret: 'rK1H0ZhuKkIe-RDULnJXgAFymac'
     });
 
-    const response = await new Promise((resolve, reject)=>{
+    const response: any = await new Promise((resolve, reject)=>{
          cloudinary.uploader
          .upload_stream({}, (err, result)=>{
             if (err) {
