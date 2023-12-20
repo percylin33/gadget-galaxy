@@ -20,7 +20,9 @@ type inputs = {
 
 export default function FormPage() {
 
-   const [productCreated, setProductCreated] = useState(false);
+  const [prev, setPrev] = useState(null);
+  const [file, setFile] = useState(null);
+  const [productCreated, setProductCreated] = useState(false);
    useEffect(() => {
       setTimeout(() => {
         setProductCreated(false); // Reset product creation status to false
@@ -28,7 +30,7 @@ export default function FormPage() {
    }, [productCreated]);
   
   const {register, handleSubmit, formState:{errors}} = useForm<inputs>({
-    resolver: zodResolver(productSchema)
+    //resolver: zodResolver(productSchema)
   });
 
   const categoryOptions =  Object.entries(mappedCategory).map(([key, value])=>(
@@ -37,18 +39,32 @@ export default function FormPage() {
  
 
  const onSubmit: SubmitHandler<inputs>= async(data)=>{
-    console.log(data );
-    const product = {
-      name: data.name,
-      brand: data.brand,
-      category: data.category,
-      image: data.image,
-      price: Number(data.price),
-      description: data.description
-    }
+  const fromData = new FormData()
+  if (file) {
+    fromData.append("file",file) 
+  }
+  
+    
+    
     try {
-      const response = await axios.post('/api/product', product); 
-      setProductCreated(true);
+       const response = await axios.post('/api/image', fromData); 
+      
+
+       const product = {
+         name: data.name,
+         brand: data.brand,
+         category: data.category,
+         image: response.data.url,
+         price: Number(data.price),
+         description: data.description
+        }
+        console.log(product);
+        
+       const produc = await axios.post('/api/product', product); 
+        console.log(produc);
+        
+        
+        setProductCreated(true);
     } catch (error) {
       alert( "Error creating product")
     }
@@ -59,7 +75,9 @@ export default function FormPage() {
       
 <div className  =" bg-gris px-8 md:grid md:grid-flow-col lg:ml-8">
   <div className="relative bg-gradient-to-b from-teal-300 via-teal-200 to-teal-100 p-4 rounded-xl md:h-96">
-    <div className="flex justify-center pb-8  ">
+     {
+      !prev ? ( <div>
+      <div className="flex justify-center pb-8  ">
       <Image src={logo} alt="logo" className="w-20 h-20 md:w-60 md:h-60" />
     </div>
     <div className="absolute inset-x-0 bottom-0">
@@ -69,7 +87,10 @@ export default function FormPage() {
         </path>
       </svg>
     
-    </div>
+    </div> </div>) : (
+        <img src={prev} alt="img" className="w-20 h-20 md:w-60 md:h-60" />
+      )
+    }
   </div>
   <div className="flex flex-col items-center justify-center gap-3 md:justify-start lg:mx-w-[550px]">
     <h2 className="font-semibold">Product Creation</h2>
@@ -111,10 +132,27 @@ export default function FormPage() {
 
       <div className="flex flex-col gap-1">
         <label htmlFor="image" className="text-sm font-semibold text-gray-600">Image:</label>
-        <input type="text" id="image" placeholder="Please enter the image"
-        className={`rounded-lg py-1 px-3 border ${errors.image?.message?" border-red-300 ":" border-gray-300  focus:ring-teal-500" } focus:outline-none focus:ring-2 max-w-[246px]`}
-        {...register("image")}
-        />
+        <input
+              id="image"
+              type="file"
+              accept="image/*"
+              className={`rounded-lg py-1   ${errors.image?.message ? " border-red-300 " : "  focus:ring-teal-500"} focus:outline-none focus:ring-2 `}
+              multiple={true}
+              onChange={(e)=>{
+                setFile(e.target.files[0])
+
+                const archivo = e.target.files[0]
+                if (archivo) {
+                  const lector = new FileReader();
+            
+                  lector.onloadend = () => {
+                    setPrev(lector.result);
+                  };
+            
+                  lector.readAsDataURL(archivo);
+                }
+              }}
+            />
         {errors.image?.message && <p className="text-red-400">{errors.image?.message}</p> }
       </div>
 

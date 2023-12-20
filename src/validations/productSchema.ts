@@ -25,9 +25,7 @@ export const productSchema = z.object({
     }),
     
     image: z.string().min(4,{
-        message: "The image must be at least 4 characters "
-    }).max(40,{
-        message: "The image must have a maximum of 40 characters"
+        message: "The Imge must  "
     }),
 
     price: z.string().refine((price)=>!isNaN(parseFloat(price)),{
