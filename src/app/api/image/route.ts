@@ -2,55 +2,48 @@ import { v2 as cloudinary } from 'cloudinary';
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-    const data = await request.formData()
-    const file = data.get("file")
+    const data = await request.formData();
 
-    if (!file) {
-        return NextResponse.json("Error al subir la imagen", {
+    const files = data.getAll("file");
+
+    if (!files || files.length === 0) {
+        return NextResponse.json("No se encontraron archivos en la solicitud", {
             status: 400
-        })
+        });
     }
 
-    const bytes = await (file as File).arrayBuffer();
-    const buffer = Buffer.from(bytes)
+    var imageUrls = [];
 
+    for (const file of files) {
+        const bytes = await (file as File).arrayBuffer();
+        const buffer = Buffer.from(bytes);
 
-    cloudinary.config({
-        cloud_name: 'dgxgcjkb4',
-        api_key: '328582633322922',
-        api_secret: 'rK1H0ZhuKkIe-RDULnJXgAFymac'
-    });
-
-    const response: any = await new Promise((resolve, reject)=>{
-         cloudinary.uploader
-         .upload_stream({}, (err, result)=>{
-            if (err) {
-                reject(err);
-            }
-            resolve(result)
-         })
-         .end(buffer)
-
-    })
-    try {
-        // const newProduct = await postProduct( name, brand, category, image, price, description);
-        //return NextResponse.json(newProduct);
-        return NextResponse.json({
-            message: "imagen subida",
-            url: response.secure_url,
+        cloudinary.config({
+            cloud_name: 'dgxgcjkb4',
+            api_key: '328582633322922',
+            api_secret: 'rK1H0ZhuKkIe-RDULnJXgAFymac'
         });
-    } catch (error) {
-        if (error instanceof Error) {
-            return NextResponse.json(
-                {
-                    message: error.message
-                },
-                {
-                    status: 500
-                }
-            )
+
+        try {
+            const response: any = await new Promise((resolve, reject) => {
+                cloudinary.uploader
+                    .upload_stream({}, (err, result) => {
+                        if (err) {
+                            reject(err);
+                        }
+                        resolve(result);
+                    })
+                    .end(buffer);
+            });
+
+            imageUrls.push(response.secure_url);
+
+        } catch (error) {
+            console.error("Error al subir imagen:", error);
+
         }
     }
-
-
+    return NextResponse.json({
+        urls: imageUrls,
+    });
 }

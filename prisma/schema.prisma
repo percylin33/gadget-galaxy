@@ -14,7 +14,7 @@ datasource db {
   name String
   brand String
   category String
-  image String
+  image String[]
   price Int
   description String
  }
