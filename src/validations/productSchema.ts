@@ -24,10 +24,12 @@ export const productSchema = z.object({
         errorMap: ()=>({message: "Please select a category"})  
     }),
     
-    
-
     price: z.string().refine((price)=>!isNaN(parseFloat(price)),{
         message: "The price must be a number greater than 0 "
+    }),
+
+    stock: z.string().refine((price)=>!isNaN(parseFloat(price)),{
+        message: "The stock must be a number greater than 0 "
     }),
     
     description: z.string().min(10,{

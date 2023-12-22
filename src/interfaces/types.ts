@@ -4,6 +4,7 @@
     category :string, 
     image :string[], 
     price :number, 
+    stock : number,
     description :string 
 }
 
@@ -13,5 +14,6 @@ export type  errorProduct = {
     category :string, 
     image :string[], 
     price :string, 
+    stock:string,
     description :string 
 }

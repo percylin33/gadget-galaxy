@@ -22,11 +22,11 @@ export async function GET(){
 
 export async function POST(request: Request) {
     
-    const { name, brand, category,image, price, description } = await request.json();
+    const { name, brand, category,image, price, stock, description } = await request.json();
     
     
     try {
-        const newProduct = await postProduct( name, brand, category, image, price, description);
+        const newProduct = await postProduct( name, brand, category, image, price, stock, description);
         return NextResponse.json(newProduct);
         
     } catch (error) {

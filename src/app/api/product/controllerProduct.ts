@@ -8,7 +8,7 @@ export async function getAllProduct() {
 }
 
 
-export async function postProduct(name: string, brand: string, category: string, image: string[], price: number, description: string) {
+export async function postProduct(name: string, brand: string, category: string, image: string[], price: number, stock:number, description: string) {
   const id = v4()
   const producto = await prisma.product.create({
     data: {
@@ -18,6 +18,7 @@ export async function postProduct(name: string, brand: string, category: string,
       category,
       image,
       price,
+      stock,
       description,
     },
   });

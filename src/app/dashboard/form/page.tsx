@@ -16,6 +16,7 @@ type inputs = {
   category: string
   image: string[]
   price: string
+  stock:string
   description: string
 }
 
@@ -58,6 +59,7 @@ export default function FormPage() {
         category: data.category,
         image: response.data.urls,
         price: Number(data.price),
+        stock: Number(data.stock),
         description: data.description
       }
       const creadoProduct = await axios.post('/api/product', product);
@@ -178,6 +180,15 @@ export default function FormPage() {
               {...register("price")}
             />
             {errors.price?.message && <p className="text-red-400">{errors.price?.message}</p>}
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <label htmlFor="stock" className="text-sm font-semibold text-gray-600">Stock:</label>
+            <input type="number" id="stock" placeholder="Please enter the Stock"
+              className={`rounded-lg py-1 px-3 border ${errors.stock?.message ? " border-red-300 " : " border-gray-300  focus:ring-teal-500"} focus:outline-none focus:ring-2 max-w-[246px]`}
+              {...register("stock")}
+            />
+            {errors.stock?.message && <p className="text-red-400">{errors.stock?.message}</p>}
           </div>
 
           <div className="flex flex-col gap-1">
