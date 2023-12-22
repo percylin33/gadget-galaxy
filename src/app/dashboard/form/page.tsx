@@ -4,7 +4,8 @@ import logo from "@/access/logo.png"
 import axios from "axios"
 import React, { useState, useEffect } from 'react';
 import Toast from "@/components/toast";
-import { SubmitHandler, useForm } from "react-hook-form"
+import Loading from "@/components/Loading";
+import { SubmitHandler, useForm} from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { productSchema, mappedCategory } from "@/validations/productSchema";
 
@@ -23,14 +24,16 @@ export default function FormPage() {
   const [imagesSelected, setImagesSelected] = useState<File[]>([])
   const [prev, setPrev] = useState<string[]>([]);
   const [productCreated, setProductCreated] = useState(false);
+  const [loading, setLoading]= useState(false)
+  
   useEffect(() => {
     setTimeout(() => {
       setProductCreated(false); // Reset product creation status to false
     }, 3000);
   }, [productCreated]);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<inputs>({
-    //resolver: zodResolver(productSchema)
+  const { register, handleSubmit,reset , formState: { errors } } = useForm<inputs>({
+    resolver: zodResolver(productSchema)
   });
 
   const categoryOptions = Object.entries(mappedCategory).map(([key, value]) => (
@@ -38,6 +41,7 @@ export default function FormPage() {
   ))
 
   const onSubmit: SubmitHandler<inputs> = async (data) => {
+         setLoading(true)
     const formData = new FormData()
     var response: any
     try {
@@ -56,9 +60,14 @@ export default function FormPage() {
         price: Number(data.price),
         description: data.description
       }
-      const produc = await axios.post('/api/product', product);
+      const creadoProduct = await axios.post('/api/product', product);
+      setLoading(false)
       setProductCreated(true);
+      setImagesSelected([])
+      setPrev([])
+      reset()
     } catch (error) {
+      setLoading(false)
       alert("Error creating product")
     }
 
@@ -96,8 +105,8 @@ export default function FormPage() {
       </div>
       <div className="flex flex-col items-center justify-center gap-3 md:justify-start lg:mx-w-[550px]">
         <h2 className="font-semibold">Product Creation</h2>
+        {loading && <Loading />}
         {productCreated && <Toast message="Product created successfully!" />}
-
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 lg:pl-20 lg:min-w-[352px]">
 
           <div className="flex flex-col gap-1">
@@ -160,7 +169,6 @@ export default function FormPage() {
 
               }}
             />
-            {errors.image?.message && <p className="text-red-400">{errors.image?.message}</p>}
           </div>
 
           <div className="flex flex-col gap-1">

@@ -24,9 +24,7 @@ export const productSchema = z.object({
         errorMap: ()=>({message: "Please select a category"})  
     }),
     
-    image: z.string().min(4,{
-        message: "The Imge must  "
-    }),
+    
 
     price: z.string().refine((price)=>!isNaN(parseFloat(price)),{
         message: "The price must be a number greater than 0 "
