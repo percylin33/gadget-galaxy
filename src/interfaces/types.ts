@@ -17,3 +17,7 @@ export type  errorProduct = {
     stock:string,
     description :string 
 }
+export type Revenue ={
+    month: string;
+    revenue: number;
+}
