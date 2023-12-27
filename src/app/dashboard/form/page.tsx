@@ -51,7 +51,7 @@ export default function FormPage() {
           let file = imagesSelected[index];
           formData.append(`file`, file);
         }
-        response = await axios.post('/api/image', formData);
+        response = await axios.post('/api/product/image', formData);
       }
       const product = {
         name: data.name,
