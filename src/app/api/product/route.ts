@@ -4,7 +4,6 @@ import { getAllProduct, postProduct} from "./controllerProduct";
 export async function GET(){
     try {
         const productos = await getAllProduct();
-        console.log(productos);
         return NextResponse.json(productos);
     } catch (error) {
         if (error instanceof Error ) {

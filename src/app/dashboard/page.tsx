@@ -4,6 +4,7 @@ import {useSearchParams, useRouter, usePathname} from "next/navigation"
 import { useDebouncedCallback } from 'use-debounce';
 import CardWrapper from "@/components/CardData"
 import RevenueChart from "@/components/RevenueChart";
+import LatestInvoices from "@/components/latesInvoices";
 
 
 import Link from "next/link"
@@ -21,6 +22,7 @@ export default function dashboardPage() {
         </div >
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
           <RevenueChart />
+          <LatestInvoices />
         </div>
       </div>
       
